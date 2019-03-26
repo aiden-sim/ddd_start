@@ -5,15 +5,43 @@ import java.util.List;
 public class Order {
 
     // 필수값
-    public Order(List<OrderLine> orderLines, ShippingInfo shippingInfo) {
+
+    public Order(Orderer orderer, List<OrderLine> orderLines, ShippingInfo shippingInfo,
+                 OrderState state) {
+        setOrderer(orderer);
         setOrderLines(orderLines);
         setShippingInfo(shippingInfo);
+        this.state = state;
     }
 
+    private void setOrderer(Orderer orderer) {
+        if (orderer == null) {
+            throw new IllegalArgumentException("no orderer");
+        }
+        this.orderer = orderer;
+    }
+
+    private void setOrderLines(List<OrderLine> orderLines) {
+        verifyAtLeastOneOrMoreOrderLines(orderLines);
+        this.orderLines = orderLines;
+        calculateTotalAmounts();
+    }
+
+    private void verifyAtLeastOneOrMoreOrderLines(List<OrderLine> orderLines) {
+        if (orderLines == null || orderLines.isEmpty()) {
+            throw new IllegalArgumentException("no OrderLine");
+        }
+    }
+
+    private void calculateTotalAmounts() {
+        this.totalAmounts = new Money(orderLines.stream()
+                .mapToInt(x -> x.getAmounts().getValue()).sum());
+    }
 
     // 엔티티 (pk)
     private String orderNumber;
 
+    private Orderer orderer;
 
     // OrderState
     private OrderState state;
@@ -56,23 +84,6 @@ public class Order {
     // OrderLine
     private List<OrderLine> orderLines;
     private Money totalAmounts;
-
-    private void setOrderLines(List<OrderLine> orderLines) {
-        verifyAtLeastOneOrMoreOrderLines(orderLines);
-        this.orderLines = orderLines;
-        calculateTotalAmounts();
-    }
-
-    private void verifyAtLeastOneOrMoreOrderLines(List<OrderLine> orderLines) {
-        if (orderLines == null || orderLines.isEmpty()) {
-            throw new IllegalArgumentException("no OrderLine");
-        }
-    }
-
-    private void calculateTotalAmounts() {
-        this.totalAmounts = new Money(orderLines.stream()
-                .mapToInt(x -> x.getAmounts().getValue()).sum());
-    }
 
     @Override
     public boolean equals(Object obj) {
