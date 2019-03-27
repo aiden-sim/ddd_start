@@ -6,4 +6,12 @@ package domain;
 public class Orderer {
 	private String name;
 	private String email;
+
+	public Customer getCustomer() {
+		return new Customer();
+	}
+
+	public String getCustomerId() {
+		return "id";
+	}
 }

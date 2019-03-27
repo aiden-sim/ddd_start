@@ -1,7 +1,7 @@
 package domain;
 
 public class ShippingInfo {
-    // 각 용도에 맞는 도메인 밸류 타입으로 변경 했음
+	// 각 용도에 맞는 도메인 밸류 타입으로 변경 했음
     /*
     private String recieverPhoneNumber;
     private String shippingAddress1;
@@ -10,7 +10,10 @@ public class ShippingInfo {
     private String receiverName;
     */
 
-    private Receiver receiver;
-    private Address address;
+	private Receiver receiver;
+	private Address address;
 
+	public String getAddress() {
+		return "주소";
+	}
 }

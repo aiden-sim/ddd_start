@@ -14,9 +14,10 @@ public class CalculateDiscountService {
 	private CustomerRepository customerRepository;
 	private RuleDiscounter ruleDiscounter;
 
-	public CalculateDiscountService(CustomerRepository customerRepository, RuleDiscounter ruleDiscounter) {
+	public CalculateDiscountService(CustomerRepository customerRepository, RuleDiscounter ruleDiscounter, OrderRepository orderRepository) {
 		this.customerRepository = customerRepository;
 		this.ruleDiscounter = ruleDiscounter;
+		this.orderRepository = orderRepository;
 	}
 
 	public Money calculateDiscount(List<OrderLine> orderLines, String customerId) {

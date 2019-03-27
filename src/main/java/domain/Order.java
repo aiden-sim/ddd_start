@@ -77,6 +77,7 @@ public class Order {
 		if (shippingInfo == null) {
 			throw new IllegalArgumentException("no ShippingInfo");
 		}
+		// ShippingInfo가 불변이므로 새로운 밸류 객체를 전달해서 값을 변경하는 방법밖에 없다.
 		this.shippingInfo = shippingInfo;
 	}
 
@@ -93,6 +94,15 @@ public class Order {
 	}
 
 	// OrderLine
+
+	public void shipTo(ShippingInfo newShippingInfo, boolean useNewShippingAddrAsMemberAddr) {
+		verifyNotYetShipped();
+		setShippingInfo(newShippingInfo);
+		if (useNewShippingAddrAsMemberAddr) {
+			// 하나의 트랜잭션 안에서 다른 애그리거트의 상태를 변경하면 안 됨!
+			orderer.getCustomer().changeAddress(newShippingInfo.getAddress());
+		}
+	}
 	private List<OrderLine> orderLines;
 	private Money totalAmounts;
 
@@ -123,5 +133,9 @@ public class Order {
 		int result = 1;
 		result = prime * result + ((orderNumber == null) ? 0 : orderNumber.hashCode());
 		return result;
+	}
+
+	public Orderer getOrderer() {
+		return new Orderer();
 	}
 }

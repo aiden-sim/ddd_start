@@ -1,6 +1,7 @@
 package dao;
 
 import domain.Order;
+import domain.OrderId;
 import domain.OrderNumber;
 
 public interface OrderRepository {
@@ -9,4 +10,6 @@ public interface OrderRepository {
 	void save(Order order);
 
 	void delete(Order order);
+
+	Order findById(OrderId id);
 }
