@@ -2,14 +2,21 @@ package dao;
 
 import domain.Order;
 import domain.OrderId;
+import domain.OrderNo;
 import domain.OrderNumber;
 
+import java.util.List;
+
 public interface OrderRepository {
-	Order findByNumber(OrderNumber number);
+    Order findById(OrderNo no);
 
-	void save(Order order);
+    void save(Order order);
 
-	void delete(Order order);
+    List<Order> findByOrdererId(String ordererId, int startRow, int size);
 
-	Order findById(OrderId id);
+    Order findByNumber(OrderNumber number);
+
+    void delete(Order order);
+
+    Order findById(OrderId id);
 }
