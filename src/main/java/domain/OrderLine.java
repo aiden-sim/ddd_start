@@ -1,13 +1,25 @@
 package domain;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.Embedded;
+
 /**
  * 최소 한 종류 이상의 상품을 주문해야 한다.
  * 총 주문 금액은 각 상품의 구매 가격 합을 모두 더한 금액이다.
  */
+@Embeddable
 public class OrderLine {
+    @Embedded
     private Product product;
+
+    @Column(name = "price")
     private Money price;
+
+    @Column(name = "quantity")
     private int quantity;
+
+    @Column(name = "amounts")
     private Money amounts;
 
     public OrderLine(Product product, Money price, int quantity) {

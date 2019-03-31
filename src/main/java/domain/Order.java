@@ -107,8 +107,13 @@ public class Order {
         }
     }
 
+    @ElementCollection
+    @CollectionTable(name = "order_line", joinColumns = @JoinColumn(name = "order_number"))
+    @OrderColumn(name = "line_idx")
     private List<OrderLine> orderLines;
-    private Money totalAmounts;
+
+    @Column(name = "total_amounts")
+    private Money totalAmounts; // MoneyConverter를 적용
 
     @Override
     public boolean equals(Object obj) {
