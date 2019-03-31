@@ -48,7 +48,8 @@ public class Order {
     }
 
     // 엔티티 (pk)
-    private String orderNumber;
+    @EmbeddedId
+    private OrderNo orderNumber;
 
     @Embedded
     private Orderer orderer;
@@ -107,7 +108,7 @@ public class Order {
         }
     }
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "order_line", joinColumns = @JoinColumn(name = "order_number"))
     @OrderColumn(name = "line_idx")
     private List<OrderLine> orderLines;
