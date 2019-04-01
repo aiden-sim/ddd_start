@@ -6,6 +6,10 @@ import java.io.Serializable;
 
 @Embeddable
 public class MemberId implements Serializable {
-    @Column(name = "member_id")
-    private String id;
+	@Column(name = "member_id")
+	private String id;
+
+	public String getId() {
+		return id;
+	}
 }

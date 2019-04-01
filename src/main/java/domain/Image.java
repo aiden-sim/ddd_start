@@ -12,7 +12,7 @@ import java.util.Date;
 @Table(name = "image")
 public abstract class Image {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "image_id")
     private Long id;
 
