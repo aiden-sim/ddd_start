@@ -89,3 +89,4 @@
 ## JPA를 위한 조회 스펙
 - CriteriaBuilder와 Predicate를 이용
 
+
