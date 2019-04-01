@@ -86,5 +86,6 @@
 - @Embeddable 매핑 타입의 경우 함께 저장되고 삭제되므로 cascade 속성 추가 설정 필요 없다.
 - @Entity 타입은 cascade 속성을 사용해서 저장과 삭제 시에 함께 처리되도록 설정해야 된다.
 
-
+## JPA를 위한 조회 스펙
+- CriteriaBuilder와 Predicate를 이용
 
