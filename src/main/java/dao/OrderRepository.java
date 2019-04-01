@@ -4,7 +4,7 @@ import domain.Order;
 import domain.OrderId;
 import domain.OrderNo;
 import domain.OrderNumber;
-import jpasepc.Specification_old;
+import jpasepc.Specification;
 
 import java.util.List;
 
@@ -21,7 +21,11 @@ public interface OrderRepository {
 
 	Order findById(OrderId id);
 
-	List<Order> findAll(Specification_old spec);
+	List<Order> findAll(Specification<Order> spec, String... orders);
 
 	List<Order> findAll();
+
+	Long countsAll();
+
+	Long counts(Specification<Order> spec);
 }

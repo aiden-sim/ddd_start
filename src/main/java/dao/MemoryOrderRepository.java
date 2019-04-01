@@ -4,16 +4,14 @@ import domain.Order;
 import domain.OrderId;
 import domain.OrderNo;
 import domain.OrderNumber;
-import jpasepc.Specification_old;
+import jpasepc.Specification;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class MemoryOrderRepository implements OrderRepository {
-	@Override public List<Order> findAll(Specification_old spec) {
-		List<Order> allOrders = findAll();
-		return allOrders.stream().filter(order -> spec.isSatisfiedBy(order)).collect(Collectors.toList());
+	@Override public List<Order> findAll(Specification<Order> spec, String... orders) {
+		return null;
 	}
 
 	@Override public List<Order> findAll() {
@@ -41,6 +39,14 @@ public class MemoryOrderRepository implements OrderRepository {
 	}
 
 	@Override public Order findById(OrderId id) {
+		return null;
+	}
+
+	@Override public Long countsAll() {
+		return null;
+	}
+
+	@Override public Long counts(Specification<Order> spec) {
 		return null;
 	}
 }
