@@ -31,4 +31,8 @@ public class Member {
 	public void leave() {
 
 	}
+
+	public MemberGrade getGrade() {
+		return null;
+	}
 }

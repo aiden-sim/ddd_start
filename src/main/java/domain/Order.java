@@ -15,6 +15,7 @@ import java.util.List;
 public class Order {
 
 	// 필수값
+
 	public Order(Orderer orderer, List<OrderLine> orderLines, ShippingInfo shippingInfo,
 			OrderState state) {
 		setOrderer(orderer);
@@ -42,8 +43,8 @@ public class Order {
 		}
 	}
 
-	private void calculateTotalAmounts() {
-		this.totalAmounts = new Money(orderLines.stream()
+	private Money calculateTotalAmounts() {
+		return new Money(orderLines.stream()
 				.mapToInt(x -> x.getAmounts().getValue()).sum());
 	}
 
@@ -86,6 +87,7 @@ public class Order {
 	}
 
 	// 도메인 모델 엔티티는 도메인 기능도 함께 제공
+
 	public void changeShippingInfo(ShippingInfo newShippingInfo) {
 		verifyNotYetShipped();
 		setShippingInfo(newShippingInfo);
@@ -98,7 +100,6 @@ public class Order {
 	}
 
 	// OrderLine
-
 	public void shipTo(ShippingInfo newShippingInfo, boolean useNewShippingAddrAsMemberAddr) {
 		verifyNotYetShipped();
 		setShippingInfo(newShippingInfo);
@@ -135,6 +136,53 @@ public class Order {
 			return false;
 		}
 		return this.orderNumber.equals(other.orderNumber);
+	}
+
+	// Coupon
+	private List<Coupon> usedCoupons;
+	private Money paymentAmounts;
+
+	/**
+	 * 애그리거트에서 도메인 서비스를 사용하는 경우
+	 */
+	public void calculateAmounts(
+			DiscountCalculationService disCalSvc, MemberGrade grade) {
+		Money totalAMounts = getTotalAmounts();
+		Money discountAmounts =
+				disCalSvc.calculateDiscountAmounts(this.orderLines, this.usedCoupons, grade);
+		this.paymentAmounts = totalAMounts.minus(discountAmounts);
+	}
+
+	private Money getTotalAmounts() {
+		return null;
+	}
+
+	/**
+	 * 주문 애그리거트가 필요한 애그리거트나 필요 데이터를 모두 가지도록 한 뒤 할인 금액 계산 책임을 주문 애그리거트에 할당하는 것이다.
+	 * DiscountCalculationService로 로직 뺐따.
+	 */
+	private Money calculatePayAmounts() {
+		Money totalAmounts = calculateTotalAmounts();
+		// 쿠폰별로 하인 금액을 구한다.
+		Money discount = usedCoupons.stream()
+				.map(coupon -> calculateDiscount(coupon))
+				.reduce(new Money(0), (v1, v2) -> v1.add(v2));
+
+		// 회원에 따른 추가 할인을 구한다.
+		Money membershipDiscount = calculateDiscount(orderer.getMember().getGrade());
+		// 실제 결제 금액 계산
+		return totalAmounts.minus(discount).minus(membershipDiscount);
+	}
+
+	private Money calculateDiscount(Coupon coupon) {
+		// orderLines의 각 상품에 대해 쿠폰을 적용해서 할인 금액 계산하는 로직.
+		// 쿠폰의 적용 조건 등을 확인하는 코드
+		// 정책에 따라 복잡한 if-selse와 계산 코드
+		return null;
+	}
+
+	private Money calculateDiscount(MemberGrade grade) {
+		return null;
 	}
 
 	@Override

@@ -22,4 +22,8 @@ public class Money {
     public int getValue() {
         return value;
     }
+
+    public Money minus(Money discount) {
+        return null;
+    }
 }

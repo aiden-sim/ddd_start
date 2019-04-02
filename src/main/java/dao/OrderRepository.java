@@ -28,4 +28,6 @@ public interface OrderRepository {
 	Long countsAll();
 
 	Long counts(Specification<Order> spec);
+
+	OrderNo nextId();
 }

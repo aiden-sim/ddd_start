@@ -30,4 +30,8 @@ public class Orderer {
 	public MemberId getMemberId() {
 		return memberId;
 	}
+
+	public MemberGrade getMember() {
+		return new MemberGrade();
+	}
 }
