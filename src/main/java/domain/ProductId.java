@@ -38,4 +38,8 @@ public class ProductId implements Serializable {
 	public int hashCode() {
 		return Objects.hash(id);
 	}
+
+	public String getValue() {
+		return null;
+	}
 }
