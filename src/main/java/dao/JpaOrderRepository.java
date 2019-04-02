@@ -6,6 +6,7 @@ import jpasepc.Specification;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.LockModeType;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -101,5 +102,19 @@ public class JpaOrderRepository implements OrderRepository {
 		criteriaQuery.select(cb.count(root)).where(spec.toPredicate(root, cb));
 		TypedQuery<Long> query = entityManager.createQuery(criteriaQuery);
 		return query.getSingleResult();
+	}
+
+	@Override public OrderNo nextId() {
+		return null;
+	}
+
+	/**
+	 * 비선점 Lock
+	 * 해당 엔티티의 상태가 변경되었는지 여부에 상관없이 트랜잭션 종료 시점에 버전 값 증가 처리
+	 */
+	@Override public Order findByIdOptimisticLockMode(OrderNo id) {
+		return entityManager.find(
+				Order.class, id, LockModeType.OPTIMISTIC_FORCE_INCREMENT
+		);
 	}
 }

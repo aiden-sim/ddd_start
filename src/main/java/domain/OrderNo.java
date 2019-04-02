@@ -9,14 +9,18 @@ import java.io.Serializable;
  */
 @Embeddable
 public class OrderNo implements Serializable {
-    @Column(name = "order_number")
-    private String number;
+	@Column(name = "order_number")
+	private String number;
 
-    /**
-     * 식별자의 장점은 기능을 추가할 수 있다.
-     * ex) 1세대 시스템의 주문번호와 2세대 시스템의 주문번호를 구분할 때
-     */
-    public boolean is2ndGeneration() {
-        return number.startsWith("N");
-    }
+	public OrderNo(String number) {
+		this.number = number;
+	}
+
+	/**
+	 * 식별자의 장점은 기능을 추가할 수 있다.
+	 * ex) 1세대 시스템의 주문번호와 2세대 시스템의 주문번호를 구분할 때
+	 */
+	public boolean is2ndGeneration() {
+		return number.startsWith("N");
+	}
 }

@@ -30,4 +30,6 @@ public interface OrderRepository {
 	Long counts(Specification<Order> spec);
 
 	OrderNo nextId();
+
+	Order findByIdOptimisticLockMode(OrderNo id);
 }

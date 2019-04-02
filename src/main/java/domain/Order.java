@@ -52,6 +52,10 @@ public class Order {
 	@EmbeddedId
 	private OrderNo orderNumber;
 
+	// 비선점 잠금
+	@Version
+	private long version;
+
 	@Embedded
 	private Orderer orderer;
 
@@ -199,5 +203,13 @@ public class Order {
 
 	public Orderer getOrdererId() {
 		return new Orderer();
+	}
+
+	public boolean matchVersion(String version) {
+		return false;
+	}
+
+	public void startShipping() {
+
 	}
 }

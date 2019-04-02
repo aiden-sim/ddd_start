@@ -49,4 +49,12 @@ public class MemoryOrderRepository implements OrderRepository {
 	@Override public Long counts(Specification<Order> spec) {
 		return null;
 	}
+
+	@Override public OrderNo nextId() {
+		return null;
+	}
+
+	@Override public Order findByIdOptimisticLockMode(OrderNo id) {
+		return null;
+	}
 }
