@@ -1,5 +1,9 @@
 package domain;
 
+import event.Events;
+import event.ShippingInfoChangedEvent;
+import service.RefundService;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -13,6 +17,7 @@ import java.util.List;
 @Table(name = "purchase_order")
 @Access(AccessType.FIELD)
 public class Order {
+	private State refundStatus;
 
 	// 필수값
 
@@ -73,6 +78,21 @@ public class Order {
 		this.state = OrderState.CANCELED;
 	}
 
+	public void cancel(RefundService refundService) {
+		this.state = OrderState.CANCELED;
+		this.refundStatus = State.REFUND_STARTED;
+		try {
+			refundService.refund(getPaymentId());
+			this.refundStatus = State.REFUND_COMPLETED;
+		} catch (Exception e) {
+
+		}
+	}
+
+	public String getPaymentId() {
+		return null;
+	}
+
 	public void completePayment() {
 		this.state = OrderState.DELIVERY_COMPLETED;
 	}
@@ -95,6 +115,8 @@ public class Order {
 	public void changeShippingInfo(ShippingInfo newShippingInfo) {
 		verifyNotYetShipped();
 		setShippingInfo(newShippingInfo);
+		// 이벤트 추가
+		Events.raise(new ShippingInfoChangedEvent(orderNumber.getOrderNo(), newShippingInfo));
 	}
 
 	private void verifyNotYetShipped() {
@@ -189,14 +211,6 @@ public class Order {
 		return null;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((orderNumber == null) ? 0 : orderNumber.hashCode());
-		return result;
-	}
-
 	public Orderer getOrderer() {
 		return new Orderer();
 	}
@@ -211,5 +225,21 @@ public class Order {
 
 	public void startShipping() {
 
+	}
+
+	public void refundStarted() {
+
+	}
+
+	public void refundCompleted() {
+
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((orderNumber == null) ? 0 : orderNumber.hashCode());
+		return result;
 	}
 }

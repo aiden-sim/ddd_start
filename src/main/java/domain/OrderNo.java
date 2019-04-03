@@ -16,6 +16,10 @@ public class OrderNo implements Serializable {
 		this.number = number;
 	}
 
+	public String getOrderNo() {
+		return number;
+	}
+
 	/**
 	 * 식별자의 장점은 기능을 추가할 수 있다.
 	 * ex) 1세대 시스템의 주문번호와 2세대 시스템의 주문번호를 구분할 때
