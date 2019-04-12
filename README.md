@@ -135,7 +135,7 @@
 - 도메인 서비스의 구현이 특정 구현 기술에 의존적이거나 외부 시스템의 API를 실행한다면 도메인 영역의 도메인 서비스는 인터페이스로 추상화해야 한다.
 
 ## 애그리거트 트랜잭션 관리
-- 선점 잠금(Pesimistic Lock)
+- 선점 잠금(Pessimistic Lock)
   - 선점 잠근은 먼저 애그리거트를 구한 스레드가 애그리거트 사용이 끝날 때까지 다른 스레드가 해당 애그리거트를 수정하는 것을 막는 방식이다.
   - ex) 오라클의 select for update, JPA LockModeType.PESSIMISTIC_WRITE
   
