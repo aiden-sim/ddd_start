@@ -1,5 +1,5 @@
 ## 도메인 모델 패턴
-- 표현 (Controller) => 응용(Service) => 도메인(domain) => 인프라스트럭쳐 (DB, 외부 API)
+- 표현 (Controller) => 응용(Service) => 도메인(Domain) => 인프라스트럭쳐 (DB, 외부 API)
 
 ## 도메인 영역의 주요 구성요소
 - 엔티티(Entitiy) : 고유의 식별자를 갖는 객체 
