@@ -1,4 +1,8 @@
-package book.chapter1;
+package book.chapter2;
+
+import book.chapter1.OrderLine;
+import book.chapter1.OrderState;
+import book.chapter1.ShippingInfo;
 
 import java.util.List;
 
