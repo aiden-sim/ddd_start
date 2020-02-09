@@ -26,6 +26,10 @@ public class Order {
         this.shippingInfo = shippingInfo;
     }
 
+    public ShippingInfo getShippingInfo() {
+        return this.shippingInfo;
+    }
+
     // 최소 한 종류 이상의 상품을 주문해야 한다.
     private void verifyAtLeastOneOrMoreOrderLines(List<OrderLine> orderLines) {
         if (orderLines == null || orderLines.isEmpty()) {
@@ -72,7 +76,16 @@ public class Order {
 
     // 4) 결제 완료로 변경하기
     public void completePayment() {
+        Order order = new Order(null, null);
+        Address newAddress = new Address("123","123","123");
 
+        ShippingInfo si = order.getShippingInfo();
+
+        if(state != OrderState.PAYMENT_WAITING && state != OrderState.WAITING) {
+            throw new IllegalArgumentException();
+        }
+
+        si.setAddress(newAddress);
     }
 
 }
