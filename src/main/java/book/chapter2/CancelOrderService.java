@@ -10,7 +10,7 @@ public class CancelOrderService {
     @Transactional
     public void cancelOrder(String orderId) throws OrderNotFoundException {
         Order order = findOrderById(orderId);
-        if (order == null)
+        if(order == null)
             throw new OrderNotFoundException(orderId);
         order.cancel();
     }
