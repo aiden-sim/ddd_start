@@ -76,16 +76,7 @@ public class Order {
 
     // 4) 결제 완료로 변경하기
     public void completePayment() {
-        Order order = new Order(null, null);
-        Address newAddress = new Address("123","123","123");
 
-        ShippingInfo si = order.getShippingInfo();
-
-        if(state != OrderState.PAYMENT_WAITING && state != OrderState.WAITING) {
-            throw new IllegalArgumentException();
-        }
-
-        si.setAddress(newAddress);
     }
 
 }
