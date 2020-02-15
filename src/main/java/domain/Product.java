@@ -21,6 +21,7 @@ public class Product {
 
     // Image는 Entity이지만 밸류 타입으로 Product에 완전 의존한다.
     // 리스트에서 Image 객체를 제거하면 DB에서 함께 삭제 되도록 orphanRemoval 사용
+
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
             orphanRemoval = true,
             fetch = FetchType.EAGER) // 루트를 구할 때, 연관된 구성요소를 DB에서 함께 읽어온다.

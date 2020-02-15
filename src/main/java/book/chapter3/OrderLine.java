@@ -21,6 +21,14 @@ public class OrderLine {
         return price * quantity;
     }
 
+    public int getPrice() {
+        return price;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
     public int getAmounts() {
         return 0;
     }

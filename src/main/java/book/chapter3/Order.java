@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Order {
     private List<OrderLine> orderLines;
-    private int totalAmounts;
+    private Money totalAmounts;
 
     // 주문할 때 배송지 정보를 반드시 지정해야 한다.
     public Order(List<OrderLine> orderLines, ShippingInfo shippingInfo) {
@@ -39,7 +39,10 @@ public class Order {
 
     // 총 주문 금액은 각 상품의 구매 가격 합을 모두 더한 금액이다.
     private void calculateTotalAmounts() {
-
+        int sum = orderLines.stream()
+                .mapToInt(ol -> ol.getPrice() * ol.getQuantity())
+                .sum();
+        this.totalAmounts = new Money(sum);
     }
 
     private OrderState state;
